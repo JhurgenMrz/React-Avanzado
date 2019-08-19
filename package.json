@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "now-build":"npm run build",
+    "now-build": "npm run build",
     "build": "webpack",
     "dev": "webpack-dev-server",
     "lint": "standard"
@@ -35,7 +35,8 @@
   },
   "dependencies": {
     "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react-dom": "^16.9.0",
+    "styled-components": "^4.3.2"
   },
   "standard": {
     "ignore": [
