@@ -1,7 +1,7 @@
 {
     "version": 2,
     "name": "petgram-jm",
-    "build": [
+    "builds": [
         {
             "use": "@now/static-build",
             "src": "package.json"
