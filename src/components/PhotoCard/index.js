@@ -4,7 +4,7 @@ import {MdFavoriteBorder} from 'react-icons/md'
 
 export const PhotoCart = ({id, likes = 0, src}) =>{
 
-    const DEFAULT_IMAGE = 'https://res.cloudinary.com/midudev/image/upload/w_300/q_80/v1560262103/dogs.png'
+    const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
 
     return (
         <article>
