@@ -1,19 +1,32 @@
 import React, { Fragment ,useState, useEffect} from 'react'
 import {Category} from '../Category'
 import {Item, List} from '../ListOfCategories/styles'
+import {Loading} from '../Loading'
 
-export const ListOfCategories = ()=>{
-
+function useCategoriesData(){
     const [categories, setCategories] = useState([])
-    const [showFixed, setShowFixed] = useState(false)
-
+    const [loading, setLoading] = useState(false)
+    
     useEffect(function(){
+        setLoading(true)
         window.fetch('https://petgram-api-jm.now.sh/categories')
             .then(res => res.json())
             .then(response => {
                 setCategories(response)
+                setLoading(false)
             })
     },[])
+
+    return { categories, loading }
+}
+
+export const ListOfCategories = ()=>{
+
+    const { categories, loading } = useCategoriesData()
+
+    const [showFixed, setShowFixed] = useState(false)
+
+    
 
     useEffect(()=>{
         const onScroll = e =>{
@@ -27,8 +40,13 @@ export const ListOfCategories = ()=>{
     },[showFixed])
 
     const renderList =(fixed)=>(
-        <List className={ fixed ? 'fixed': ''}>
+        <List fixed={fixed}>
             {
+                loading 
+                ? 
+                // <Item key='loading'><Category /></Item>
+                <Loading/>
+                :
                 categories.map((category)=>(
                     <Item key={category.id}>
                         <Category {...category}/>
@@ -37,6 +55,7 @@ export const ListOfCategories = ()=>{
             }
         </List>
     )
+
 
     return(
 
