@@ -1,23 +1,48 @@
-import React from 'react'
-import {ImgWrapper,Img, Button} from './styles'
+import React, {Fragment,useEffect, useRef,useState} from 'react'
+import {ImgWrapper,Img, Button,Article} from './styles'
 import {MdFavoriteBorder} from 'react-icons/md'
 
-export const PhotoCart = ({id, likes = 0, src}) =>{
+const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
 
-    const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
+export const PhotoCart = ({id, likes = 0, src = DEFAULT_IMAGE }) =>{
+
+    const [show, setShow] = useState(false)
+
+    const element = useRef(null)
+
+    useEffect(function(){
+        const observer = new window.IntersectionObserver(function(entries){
+            const { isIntersecting } = entries[0]
+            // isIntersecting es para saber si esta en el viewPort
+            if(isIntersecting){
+                console.log('Si!')
+                setShow(true)
+                observer.disconnect()
+            }})
+
+        //Iniciamos el observador con el elemento
+        observer.observe(element.current)
+    },[element])
 
     return (
-        <article>
-            <a href={`/detail/${id}`}>
-                <ImgWrapper>
-                    <Img src={DEFAULT_IMAGE} alt=""/>
-                </ImgWrapper>
-            </a>
+        <Article ref={element}>
 
-            <Button>
-                <MdFavoriteBorder size={`32px`}/>
-                {likes} likes!
-            </Button>
-        </article>
+            {
+                show &&
+                <Fragment>
+                    <a href={`/detail/${id}`}>
+                    <ImgWrapper>
+                        <Img src={src} />
+                    </ImgWrapper>
+                    </a>
+                    <Button>
+                    <MdFavoriteBorder size={`32px`}/>
+                    {likes} likes!
+                    </Button>
+                </Fragment>
+            }
+
+            
+        </Article>
     )
 }

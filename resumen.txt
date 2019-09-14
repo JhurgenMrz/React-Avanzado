@@ -1,0 +1,2 @@
+la prop ref es para capturar el elemento del DOM que despues la guardamos en la constante con la que iniciamos el useRef(null)
+intersectionObserver no esta soportado por todos los navegadores por eso instalamos un polyfill
