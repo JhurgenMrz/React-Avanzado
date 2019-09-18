@@ -1,16 +1,31 @@
-import React from 'react'
+import React,{Fragment} from 'react'
 import {GlobalStyle} from './styles/GlobalStyles'
 import {Logo} from './components/Logo'
 import { ListOfCategories } from './components/ListOfCategories'
-import {ListOfPhotoCards} from './components/ListOfPhotoCards'
+import {ListOfPhotoCards} from './container/ListOfPhotoCards'
+import {PhotoCardWithQuery} from './container/PhotoCardWithQuery'
 
 
+export const App = () => {
+  const urlParams = new window.URLSearchParams(
+    window.location.search
+  )
 
-export const App = () => (
+  const detailId = urlParams.get('detail')
+    console.log(detailId)
+
+  return (
   <div>
     <GlobalStyle/>
     <Logo/>
-    <ListOfCategories />
-    <ListOfPhotoCards />
+    {
+      detailId 
+      ? <PhotoCardWithQuery id={detailId}/>
+      : <Fragment>
+        <ListOfCategories />
+        <ListOfPhotoCards categoryId={1}/>
+      </Fragment>
+    }
+    
   </div>
-)
+)}
