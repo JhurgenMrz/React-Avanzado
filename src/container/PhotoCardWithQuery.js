@@ -1,10 +1,11 @@
 import React from 'react'
 import {PhotoCart} from '../components/PhotoCard'
+import {Loading} from '../components/Loading'
 
 import {gql} from 'apollo-boost'
 import {Query} from 'react-apollo'
 
-const query = gql`
+const GET_SINGLE_PHOTO = gql`
     query getSinglePhoto($id:ID!){
         photo(id:$id){
         id
@@ -17,18 +18,21 @@ const query = gql`
 }
 `
 
+const renderProp = ({ loading, error, data }) => {
+    if(loading) return <Loading/>
+    if(error){
+        return <p>Error!</p>
+    }else{
+        const { photo = {}} = data
+        return <PhotoCart {...photo}/>
+    }
+    
+    }
+
 export const PhotoCardWithQuery = ({ id }) => (
-    <Query query={query} variables={{ id }}>
+    <Query query={GET_SINGLE_PHOTO} variables={{ id }}>
         {
-            ({ loading, error, data }) => {
-                
-                if(loading){
-                    return <h1>cargando</h1>
-                }else{
-                    const { photo = {} } = data
-                    return <PhotoCart {...photo}/>
-                }
-            } 
-        }
+           renderProp 
+        } 
     </Query>
 )
