@@ -1,8 +1,10 @@
 import React, {Fragment,useEffect, useRef,useState} from 'react'
+import {Link} from '@reach/router'
 import {ImgWrapper,Img,Article} from './styles'
 import {useLocalStorage} from '../../hooks/useLocalStorage'
 import {useNearScreen} from '../../hooks/useNearScreen'
 import {ToggleLikeMutation} from '../../container/ToggleLikeMutation'
+
 
 import {FavButton} from '../FavButton'
 
@@ -25,11 +27,11 @@ export const PhotoCart = ({id, likes = 0, src = DEFAULT_IMAGE }) =>{
             {
                 show &&
                 <Fragment>
-                    <a href={`/?detail=${id}`}>
+                    <Link to={`/detail/${id}`}>
                     <ImgWrapper>
                         <Img src={src} />
                     </ImgWrapper>
-                    </a>
+                    </Link>
                     
                     <ToggleLikeMutation>
 
